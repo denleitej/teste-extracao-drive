@@ -3,6 +3,43 @@
 Ambiente local para testar **download**, **extração de planilhas para banco** e
 **sincronização incremental** do Google Drive, usando sua própria conta.
 
+---
+
+## 🚀 Início rápido
+
+Roteiro mínimo do zero ao primeiro uso. O passo a passo detalhado (incl. o setup
+do Google Cloud) está em **[SETUP.md](SETUP.md)**.
+
+```bash
+# 1. Pré-requisitos: Python 3.10+, PostgreSQL e as credenciais do Google
+#    (crie o projeto no Google Cloud e baixe o credentials.json - ver SETUP.md, Passo 2)
+
+# 2. Ambiente Python
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1        # Windows  (Linux/macOS: source .venv/bin/activate)
+pip install -r requirements.txt
+
+# 3. Banco de dados
+psql -U postgres -c "CREATE DATABASE drive_teste;"
+copy .env.example .env              # depois edite o .env com a senha do PostgreSQL
+
+# 4. Login no Google (abre o navegador uma vez)
+python auth.py
+
+# 5. Criar as tabelas
+python db.py
+
+# 6. Usar!
+python drive_download.py list             # lista arquivos e mostra os FILE_IDs
+python files_to_db.py extract <FILE_ID>   # guarda um arquivo no PostgreSQL
+python files_to_db.py restore <FILE_ID>   # recupera o arquivo do banco para o disco
+```
+
+> Cada script rodado **sem argumentos** mostra sua própria ajuda de uso.
+> Veja todos os comandos e exemplos na seção **[5. Rodar os testes](#5-rodar-os-testes)**.
+
+---
+
 ## APIs usadas
 
 | API | Para quê |
