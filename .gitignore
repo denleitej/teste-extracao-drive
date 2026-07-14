@@ -1,0 +1,16 @@
+# Segredos e credenciais - NUNCA versionar
+.env
+credentials.json
+token.json
+
+# main.py é um wrapper local (menu central) - nao versionar
+main.py
+
+# Downloads e artefatos (arquivos pessoais recuperados do Drive)
+downloads/
+recuperados/
+*.sql
+*.pyc
+__pycache__/
+.venv/
+venv/
